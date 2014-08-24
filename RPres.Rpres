@@ -1,0 +1,82 @@
+RPres
+========================================================
+author: Geetanjalee
+date: August 24, 2014
+
+Welcome to the world of predictions
+========================================================
+
+We predict your Health, Wealth and Romance for the day using
+
+- Birth date
+- or Initials of your name
+- Date
+- Estimated Epsilon (not random) for unknowns
+
+The server side script
+========================================================
+We see that the prediction for someone born during first 10 days of January, allowing for error epsillon, is -
+```{r echo=FALSE}
+ getFortune<-function(f1, n1, n2, n3, n4) {
+        adjH<-c("Good","OK","Great","Bad","Horrible")
+        adjF<-c("Look up","Wash away","be decent","greatly increase","Lookup")
+        adjR<-c("Cold","OK","Great","Bad","Hot")
+        d1<-Sys.Date()-as.Date("1966/04/15", format("%Y/%m/%d"))        
+        if(f1 == "1") {
+            n1i <- as.numeric(n1)
+            n2i<-as.numeric(n2)
+            d1<-d1/n1i
+            set.seed(d1)
+            i<-sample(1:5, 1)
+            str1<-paste("your health today will be", adjH[i])
+            d1<-d1/(n1i+n2i)
+            set.seed(d1)
+            i<-sample(1:5, 1)
+            str2<-paste("your Fiannces today will ", adjF[i])
+            set.seed(n1i+n2i)
+            i<-sample(1:5, 1)
+           str3<-paste("your romance today will be", adjR[i])
+        }
+        else if (f1 == "2"){
+            n1i <- as.numeric(n3)
+            n2i<-as.numeric(n4)
+            d1<-d1/n1i
+            set.seed(d1)
+            i<-sample(1:5, 1)
+            str1<-paste("your health today will be", adjH[i])
+            d1<-d1/(n1i+n2i)
+            set.seed(d1)
+            i<-sample(1:5, 1)
+            str2<-paste("your Fiannces today will ", adjF[i])
+            set.seed(n1i+n2i)
+            i<-sample(1:5, 1)
+            str3<-paste("your romance today will be", adjR[i])
+        }
+        else
+        {
+            str1 <- "Choose the type of prediction you want by clicking a radio button (you asked for help just now) - either by name or buy date."
+            str2 <- "If by date, our prediction algorithm needs you to tell us your birth month and the 10 day range of the date you were born in - both are drop down lists for you to chose from."
+            str3 <- " For prediction by name, just give us your first and last name initials. Enjoy!"
+        }
+        paste(str1, str2, str3, sep='\n')  
+    }
+getFortune(1,2,3,4,5)
+```
+
+While that for someone with Initials "D.E." is -
+``` {r echo = FALSE}
+getFortune(2,2,3,4,5)
+```
+The User interface 
+========================================================
+In the user interface, we use -
+- Radio buttons
+- Dropdown list boxes
+- Conditional panels
+
+Internally we also take into account the date.
+
+Thank you
+================================================
+Hope you enjoy visiting the site at -
+https://github.com/gsnken/DDPprj
